@@ -1,8 +1,21 @@
 // to do
-// hangman picture
 // filter all except letters
 // readline-sync support
 
+const hangmanASCII = [
+    `
+    +---+\n  |   |\n      |\n      |\n      |\n      |\n=========\n  `,
+    `
+    +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========\n  `,
+    `
+    +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========\n  `,
+    `
+    +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========\n  `,
+    `
+    +---+\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========\n  `,
+    `
+    +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========\n  `
+  ];
 const prompt = require("prompt-sync")();
 let wordFromCL = "";
 if (process.argv.length < 3) { 
@@ -23,13 +36,15 @@ let display = [];
 for (let i=0; i<wordLength; i++) {
     display.push("_");
 }
-console.log(wordFromCL);
-console.log(wordLength);
-console.log(display);
+// console.log(wordFromCL);
+// console.log(wordLength);
+
+console.log(hangmanASCII[6-chances]);
+console.log(display.join(" "));
 
 while (endOfGame === false) {
     let guess = prompt("Guess a letter: ").toLowerCase();
-    console.log(guess);
+    // console.log(guess);
 
     if (display.indexOf(guess) !== -1 ) {
         console.log(`letter ${guess} was previously entered`);
@@ -49,7 +64,9 @@ while (endOfGame === false) {
         console.log(`You've lost, you have no chances left`)
         console.log(`The word is '${wordFromCL}'`);
     }
-    console.log(display.join(""));
+    console.log(hangmanASCII[6-chances]);
+    console.log(display.join(" "));
+
     if (!display.includes('_')) {
         endOfGame = true;
         console.log(`You win! The word was '${wordFromCL}'!`);
