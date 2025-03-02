@@ -1,6 +1,3 @@
-// to do
-// readline-sync support
-
 const prompt = require("prompt-sync")();
 
 const hangmanASCII = [
@@ -15,7 +12,9 @@ const hangmanASCII = [
     `
     +---+\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========\n  `,
     `
-    +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========\n  `
+    +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========\n  `,
+     `
+    +---+\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n=========\n  `
 ];
 
 function getWordFromCLI() {
@@ -45,20 +44,15 @@ if (process.argv.length < 3) {
 
 let wordLength = wordFromCL.length;
 let endOfGame = false;
-let chances = 5;
+let chances = 6;
 let display = [];
 
 for (let i=0; i<wordLength; i++) {
     display.push("_");
 }
-// console.log(wordFromCL);
-// console.log(wordLength);
-
-// console.log(hangmanASCII[6-chances]);
-// console.log(display.join(" "));
 
 while (endOfGame === false) {
-    console.log(hangmanASCII[5-chances]);
+    console.log(hangmanASCII[6-chances]);
     console.log(display.join(" "));
     let guess =  prompt("Guess a letter: ").toLowerCase();
     // console.log(guess);
@@ -70,6 +64,7 @@ while (endOfGame === false) {
         let letter = wordFromCL[position];
         if (letter === guess) {
             display.splice(position, 1, letter);
+            console.log("Bingo!")
         }
     }
     if (!display.includes(guess)) {
@@ -82,17 +77,13 @@ while (endOfGame === false) {
         currentPictureState = 6-chances;
         endOfGame = true;
         console.log(`You've lost.`)
-        console.log(hangmanASCII[5-chances]);
+        console.log(hangmanASCII[6-chances]);
         console.log(`The word was '${wordFromCL}'`);
         break;
     }
-    // console.log(hangmanASCII[6-chances]);
-    // console.log(display.join(" "));
 
     if (!display.includes('_')) {
         endOfGame = true;
         console.log(`You win! The word was '${wordFromCL}'!`);
     }
 }
-
-
